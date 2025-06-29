@@ -1,12 +1,7 @@
+import React from 'react';
 import './ProductList.css';
 
-function ProductList() {
-  const products = [
-    { id: 1, name: 'Product 1', price: 100 },
-    { id: 2, name: 'Product 2', price: 200 },
-    { id: 3, name: 'Product 3', price: 300 },
-  ];
-
+function ProductList({ products }) {
   return (
     <div className="product-list">
       <h2>Product List</h2>
@@ -19,13 +14,19 @@ function ProductList() {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>${product.price}</td>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.id}</td>
+                <td>{product.name}</td>
+                <td>${product.price}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3">No products available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

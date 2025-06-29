@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 
 function App() {
+  const [products, setProducts] = useState([]);
+
+  const handleAddProduct = (newProduct) => {
+    setProducts([...products, newProduct]);
+  };
+
   return (
     <div className="cms-container">
       <header className="cms-header">
@@ -17,7 +24,8 @@ function App() {
           </ul>
         </aside>
         <main className="cms-content">
-          <ProductList />
+          <ProductForm onAddProduct={handleAddProduct} />
+          <ProductList products={products} />
         </main>
       </div>
     </div>

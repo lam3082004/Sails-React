@@ -1,11 +1,10 @@
-/* client/src/components/ProductList.css */
 .product-list {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px 0;
 }
 
 .product-list h2 {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 .product-list table {
@@ -16,7 +15,7 @@
 .product-list th,
 .product-list td {
   border: 1px solid #ddd;
-  padding: 0.5rem;
+  padding: 8px;
   text-align: left;
 }
 
@@ -28,6 +27,7 @@
 .product-list tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
 .product-list tr:nth-child(odd) {
   background-color: #ecf0f1;
 }

@@ -6,8 +6,23 @@ import ProductList from './components/ProductList';
 function App() {
   const [products, setProducts] = useState([]);
 
+  // Hàm thêm sản phẩm
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct]);
+  };
+
+  // Hàm xóa sản phẩm
+  const handleDeleteProduct = (id) => {
+    setProducts(products.filter((product) => product.id !== id));
+  };
+
+  // Hàm cập nhật sản phẩm (lifting state)
+  const handleUpdateProduct = (updatedProduct) => {
+    setProducts(
+      products.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      )
+    );
   };
 
   return (
@@ -25,7 +40,11 @@ function App() {
         </aside>
         <main className="cms-content">
           <ProductForm onAddProduct={handleAddProduct} />
-          <ProductList products={products} />
+          <ProductList
+            products={products}
+            onDeleteProduct={handleDeleteProduct}
+            onUpdateProduct={handleUpdateProduct}
+          />
         </main>
       </div>
     </div>

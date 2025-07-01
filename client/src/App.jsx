@@ -52,3 +52,8 @@ function App() {
 }
 
 export default App;
+
+        // "name": "iPhone 15 Pro",
+        // "price": 29990000,
+        // "description": "Điện thoại  minh cao cấp",
+        // "category": "Electronics",

@@ -1,32 +1,47 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
+}
+
 .cms-container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .cms-header {
-  background-color: #2c3e50;
+  background-color: #343a40;
   color: white;
-  padding: 1rem;
-  text-align: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cms-header h1 {
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .cms-main {
   display: flex;
   flex: 1;
+  min-height: calc(100vh - 80px);
 }
 
 .cms-sidebar {
-  background-color: #ecf0f1;
-  width: 200px;
-  padding: 1rem;
+  width: 250px;
+  background-color: #495057;
+  padding: 20px 0;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.1);
 }
 
 .cms-sidebar ul {
@@ -34,26 +49,94 @@
 }
 
 .cms-sidebar li {
-  margin: 1rem 0;
+  margin-bottom: 10px;
 }
 
 .cms-sidebar a {
+  display: block;
+  color: #adb5bd;
   text-decoration: none;
-  color: #2c3e50;
+  padding: 12px 20px;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.cms-sidebar a:hover {
+  background-color: #6c757d;
+  color: white;
+  border-left-color: #007bff;
 }
 
 .cms-content {
   flex: 1;
-  padding: 2rem;
-  background-color: #f9f9f9;
+  padding: 30px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .cms-main {
     flex-direction: column;
   }
-
+  
   .cms-sidebar {
     width: 100%;
+    order: 2;
   }
+  
+  .cms-content {
+    order: 1;
+    padding: 20px 15px;
+  }
+  
+  .cms-header {
+    padding: 1rem;
+  }
+  
+  .cms-header h1 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cms-content {
+    padding: 15px 10px;
+  }
+}
+
+/* Loading Animation */
+.loading::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

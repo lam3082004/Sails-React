@@ -1,8 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // Thay thế với thông tin MongoDB server của bạn
-const url = 'mongodb+srv://lam3082004:lam3082004@cms-database.omtcheu.mongodb.net/cms_db?retryWrites=true&w=majority&appName=CMS-database&tls=true';
-
+const url = 'mongodb+srv://lam3082004:lam3082004@cms-database.omtcheu.mongodb.net/cms_db?retryWrites=true&w=majority&appName=CMS-database&tls=true&tlsAllowInvalidCertificates=true';
 async function testConnection() {
   try {
     console.log('Đang kết nối tới MongoDB...');

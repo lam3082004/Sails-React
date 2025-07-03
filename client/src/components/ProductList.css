@@ -202,3 +202,94 @@
     width: 100%;
   }
 }
+
+[data-theme='dark'] .product-list {
+  color: #e9ecef;
+}
+[data-theme='dark'] .product-list h2 {
+  color: #e9ecef;
+}
+[data-theme='dark'] .product-list table {
+  background: #23272b;
+  color: #e9ecef;
+}
+[data-theme='dark'] .product-list th {
+  background-color: #181a1b;
+  color: #bfc8d0;
+}
+[data-theme='dark'] .product-list td {
+  border-bottom: 1px solid #333;
+}
+[data-theme='dark'] .product-list tr:hover {
+  background-color: #23272b;
+}
+[data-theme='dark'] .table-container {
+  background: transparent;
+}
+[data-theme='dark'] .stock-status.in-stock {
+  background-color: #22332a;
+  color: #a8e6b1;
+}
+[data-theme='dark'] .stock-status.out-stock {
+  background-color: #3a2323;
+  color: #f8d7da;
+}
+[data-theme='dark'] .edit-btn {
+  background-color: #357abd;
+  color: #fff;
+}
+[data-theme='dark'] .edit-btn:hover:not(:disabled) {
+  background-color: #23272b;
+}
+[data-theme='dark'] .delete-btn {
+  background-color: #a94442;
+  color: #fff;
+}
+[data-theme='dark'] .delete-btn:hover:not(:disabled) {
+  background-color: #721c24;
+}
+[data-theme='dark'] .edit-btn:disabled,
+[data-theme='dark'] .delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+[data-theme='dark'] .edit-form-container {
+  background: #23272b;
+  color: #e9ecef;
+}
+[data-theme='dark'] .edit-form-container h3 {
+  color: #e9ecef;
+}
+[data-theme='dark'] .edit-form label {
+  color: #bfc8d0;
+}
+[data-theme='dark'] .edit-form input,
+[data-theme='dark'] .edit-form textarea {
+  background: #181a1b;
+  color: #e9ecef;
+  border: 1.5px solid #444;
+}
+[data-theme='dark'] .edit-form input:focus,
+[data-theme='dark'] .edit-form textarea:focus {
+  border-color: #4a90e2;
+  background: #23272b;
+}
+[data-theme='dark'] .edit-form input:disabled,
+[data-theme='dark'] .edit-form textarea:disabled {
+  background: #23272b;
+  color: #888;
+}
+[data-theme='dark'] .form-actions .save-btn {
+  background-color: #357abd;
+  color: #fff;
+}
+[data-theme='dark'] .form-actions .save-btn:hover:not(:disabled) {
+  background-color: #23272b;
+}
+[data-theme='dark'] .form-actions .cancel-btn {
+  background-color: #6c757d;
+  color: #fff;
+}
+[data-theme='dark'] .form-actions .cancel-btn:hover:not(:disabled) {
+  background-color: #23272b;
+}

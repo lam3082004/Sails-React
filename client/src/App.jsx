@@ -3,11 +3,27 @@ import './App.css';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
 import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+
+function About() {
+  return (
+    <div>
+      <h2>About</h2>
+      <p>This is a simple CMS demo using React and Sails.js.</p>
+    </div>
+  );
+}
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // Fetch products from API when component mounts
   useEffect(() => {
@@ -98,33 +114,42 @@ function App() {
   }
 
   return (
-    <div className="cms-container">
-      <header className="cms-header">
-        <h1>My CMS</h1>
-      </header>
-      <div className="cms-main">
-        <aside className="cms-sidebar">
-          <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Settings</a></li>
-          </ul>
-        </aside>
-        <main className="cms-content">
-          {error && (
-            <div className="error-message" style={{color: 'red', marginBottom: '10px'}}>
-              {error}
+    <Router>
+      <div className="cms-container">
+        <header className="cms-header">
+          <h1>My CMS</h1>
+        </header>
+        <div className="cms-main">
+          <aside className="cms-sidebar">
+            <ul>
+              <li><Link to="/products">Products</Link></li>
+              <li><Link to="/add">Add Product</Link></li>
+              <li><Link to="/about">About</Link></li>
+            </ul>
+            <div className="cms-sidebar-footer">
+              <button
+                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              >
+                {theme === 'light' ? '🌞 Light' : '🌙 Dark'}
+              </button>
             </div>
-          )}
-          <ProductForm onAddProduct={handleAddProduct} />
-          <ProductList
-            products={products}
-            onDeleteProduct={handleDeleteProduct}
-            onUpdateProduct={handleUpdateProduct}
-          />
-        </main>
+          </aside>
+          <main className="cms-content">
+            {error && (
+              <div className="error-message" style={{color: 'red', marginBottom: '10px'}}>
+                {error}
+              </div>
+            )}
+            <Routes>
+              <Route path="/products" element={<ProductList products={products} onDeleteProduct={handleDeleteProduct} onUpdateProduct={handleUpdateProduct} />} />
+              <Route path="/add" element={<ProductForm onAddProduct={handleAddProduct} />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/" element={<Navigate to="/products" replace />} />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

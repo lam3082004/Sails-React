@@ -124,3 +124,51 @@
     font-size: 14px;
   }
 }
+
+[data-theme='dark'] .product-form {
+  background: #23272b;
+  color: #e9ecef;
+}
+[data-theme='dark'] .product-form h2 {
+  color: #e9ecef;
+}
+[data-theme='dark'] .product-form label {
+  color: #bfc8d0;
+}
+[data-theme='dark'] .product-form input,
+[data-theme='dark'] .product-form textarea {
+  background: #181a1b;
+  color: #e9ecef;
+  border: 1.5px solid #444;
+}
+[data-theme='dark'] .product-form input:focus,
+[data-theme='dark'] .product-form textarea:focus {
+  border-color: #4a90e2;
+  background: #23272b;
+}
+[data-theme='dark'] .product-form input:disabled,
+[data-theme='dark'] .product-form textarea:disabled {
+  background: #23272b;
+  color: #888;
+}
+[data-theme='dark'] .product-form button {
+  background: linear-gradient(135deg, #357abd 0%, #23272b 100%);
+  color: #fff;
+}
+[data-theme='dark'] .product-form button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #23272b 0%, #357abd 100%);
+}
+[data-theme='dark'] .product-form button:disabled {
+  background: #444;
+  color: #aaa;
+}
+[data-theme='dark'] .product-form .message.success {
+  background-color: #22332a;
+  color: #a8e6b1;
+  border: 1px solid #3c6e47;
+}
+[data-theme='dark'] .product-form .message.error {
+  background-color: #3a2323;
+  color: #f8d7da;
+  border: 1px solid #a94442;
+}

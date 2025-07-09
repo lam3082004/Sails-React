@@ -10,5 +10,8 @@ module.exports.routes = {
   'GET /api/products/:id': 'ProductController.findOne',
   'POST /api/products': 'ProductController.create',
   'PUT /api/products/:id': 'ProductController.update',
-  'DELETE /api/products/:id': 'ProductController.destroy'
+  'DELETE /api/products/:id': 'ProductController.destroy',
+
+  // Search route cho Product
+  'GET /api/products/search': 'ProductController.search'
 };

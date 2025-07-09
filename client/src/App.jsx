@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import ProductForm from './components/ProductForm';
-import ProductList from './components/ProductList';
+import ProductForm from './components/Product/ProductFormAdd';
+import ProductList from './components/Product/ProductList';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 
@@ -105,6 +105,24 @@ function App() {
     }
   };
 
+  // Hàm lọc sản phẩm với API GET
+  const handleFilterProducts = async ({ searchTerm, minPrice, maxPrice, category }) => {
+    try {
+      setLoading(true);
+      let url = 'http://localhost:1337/api/products/search?';
+      if (searchTerm) url += `search=${encodeURIComponent(searchTerm)}&`;
+      if (minPrice) url += `minPrice=${minPrice}&`;
+      if (maxPrice) url += `maxPrice=${maxPrice}&`;
+      if (category) url += `category=${encodeURIComponent(category)}&`;
+      const response = await axios.get(url);
+      setProducts(response.data); // Nếu backend trả về {success, data} thì dùng setProducts(response.data.data)
+      setError(null);
+    } catch (err) {
+      setError('Failed to filter products');
+    } finally {
+      setLoading(false);
+    }
+  };
   if (loading) {
     return (
       <div className="cms-container">
@@ -141,7 +159,17 @@ function App() {
               </div>
             )}
             <Routes>
-              <Route path="/products" element={<ProductList products={products} onDeleteProduct={handleDeleteProduct} onUpdateProduct={handleUpdateProduct} />} />
+              <Route
+                path="/products"
+                element={
+                  <ProductList
+                    products={products}
+                    onDeleteProduct={handleDeleteProduct}
+                    onUpdateProduct={handleUpdateProduct}
+                    onFilterProducts={handleFilterProducts}
+                  />
+                }
+              />
               <Route path="/add" element={<ProductForm onAddProduct={handleAddProduct} />} />
               <Route path="/about" element={<About />} />
               <Route path="/" element={<Navigate to="/products" replace />} />

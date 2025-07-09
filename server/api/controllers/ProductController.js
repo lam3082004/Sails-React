@@ -5,6 +5,35 @@
  */
 
 module.exports = {
+  // GET /api/products/search - Tìm kiếm sản phẩm
+  search: async function (req, res) {
+    try {
+      const search = req.query.search || '';
+      const minPrice = req.query.minPrice ? parseFloat(req.query.minPrice) : null;
+      const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : null;
+      const category = req.query.category || '';
+
+      let criteria = {};
+
+      if (search) {
+        criteria.name = { contains: search };
+      }
+      if (minPrice !== null || maxPrice !== null) {
+        criteria.price = {};
+        if (minPrice !== null) criteria.price['>='] = minPrice;
+        if (maxPrice !== null) criteria.price['<='] = maxPrice;
+      }
+      if (category) {
+        criteria.category = category;
+      }
+
+      const products = await Product.find(criteria);
+      return res.json(products);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
 
   // GET /api/products - Lấy tất cả sản phẩm
   find: async function (req, res) {

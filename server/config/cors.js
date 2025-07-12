@@ -1,5 +1,6 @@
 module.exports.cors = {
   allRoutes: true,
   allowOrigins: '*',
-  allowCredentials: false
+  allowCredentials: false,
+  allowRequestHeaders: 'authorization,content-type,origin,accept',
 };

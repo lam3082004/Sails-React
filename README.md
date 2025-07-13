@@ -1,7 +1,7 @@
 # Mini CMS Project (React + Sails.js)
 
 ## 📝 Giới thiệu
-Đây là dự án **Mini CMS** sử dụng React (frontend) và Sails.js (backend) với MongoDB. Ứng dụng cho phép quản lý sản phẩm, đăng ký/đăng nhập người dùng với JWT, hỗ trợ dark mode, tìm kiếm, phân trang, và nhiều tính năng hiện đại.
+Đây là dự án **Mini CMS** sử dụng React (frontend) và Sails.js (backend) với MongoDB. Ứng dụng cho phép quản lý sản phẩm, đăng ký/đăng nhập người dùng với JWT, hỗ trợ dark mode, tìm kiếm, phân trang, CRUD cơ bản, ... 
 
 ---
 
@@ -94,13 +94,13 @@ npm run dev
 - Viết unit test cho backend/frontend
 - Tích hợp CI/CD, Docker
 - Viết tài liệu API chi tiết (Swagger)
-
+- ....
 ---
 
 ## 🧑‍💻 Công nghệ sử dụng
-- React, React Router, Axios, TailwindCSS (hoặc CSS thuần)
+- React, React Router, Axios, CSS thuần
 - Sails.js, MongoDB, JWT, Bcrypt
-- Postman, VSCode, Git
+- Postman, VSCode, Cursor Git
 
 ---
 
@@ -114,6 +114,5 @@ npm run dev
 
 ---
 
-## ✨ Tác giả & Đóng góp
-- Tác giả: <Your Name>
-- Đóng góp: Pull request, issue, feedback đều được chào đón!
+## ✨ Tác giả 
+- Tác giả: Bùi Tùng Lâm

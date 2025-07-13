@@ -2,7 +2,7 @@
 module.exports.datastores = {
   default: {
     adapter: 'sails-mongo',
-    url: 'mongodb+srv://lam3082004:lam3082004@cms-database.omtcheu.mongodb.net/cms_db?retryWrites=true&w=majority&appName=CMS-database&tls=true&tlsAllowInvalidCertificates=true',
+    url: process.env.MONGO_URI,
     // database: 'CMS-database',
     // migrate: 'safe' // <-- Add this line
   }

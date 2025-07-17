@@ -17,6 +17,7 @@ function LoginForm({ onLogin, onClose }) {
       setPassword('');
       // Lưu token vào localStorage
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('roles', JSON.stringify(res.data.user.roles || []));
       if (onLogin) onLogin(res.data.user);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Đăng nhập thất bại');

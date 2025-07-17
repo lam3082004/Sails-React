@@ -1,33 +1,22 @@
-# Mini CMS Project (React + Sails.js)
+# Sails-React CMS
 
 ## 📝 Giới thiệu
-Đây là dự án **Mini CMS** sử dụng React (frontend) và Sails.js (backend) với MongoDB. Ứng dụng cho phép quản lý sản phẩm, đăng ký/đăng nhập người dùng với JWT, hỗ trợ dark mode, tìm kiếm, phân trang, CRUD cơ bản, ... 
+Đây là dự án **Mini CMS** sử dụng React (frontend) và Sails.js (backend) với MongoDB. Ứng dụng cho phép quản lý sản phẩm, đăng ký/đăng nhập người dùng với JWT, hỗ trợ phân quyền RBAC (admin, viewer), tìm kiếm, phân trang, CRUD cơ bản, và giao diện hiện đại.
 
 ---
 
 ## 🚀 Tính năng chính
-- Đăng ký, đăng nhập, đăng xuất (JWT, Bcrypt)
-- Quản lý sản phẩm: Thêm, sửa, xóa, tìm kiếm, phân trang
-- Tìm kiếm và phân trang thực hiện trên backend
-- Lưu theme (light/dark) và trạng thái đăng nhập bằng localStorage
-- Lưu session info, pageViews bằng sessionStorage
-- Lưu thời gian truy cập gần nhất (localStorage, hiển thị ở footer)
-- Giao diện responsive, hiện đại, hỗ trợ dark mode
-- Bảo vệ route, chỉ user đăng nhập mới thao tác sản phẩm
-- Giao tiếp API qua axios, xử lý lỗi, loading
-
----
-
-## 🏗️ Cấu trúc thư mục
-```
-Sails-React/
-  client/      # React frontend
-  server/      # Sails.js backend
-```
+- Đăng ký, đăng nhập, xác thực JWT
+- Quản lý sản phẩm (Thêm/Sửa/Xóa/Tìm kiếm/Phân trang)
+- Phân quyền RBAC: admin (toàn quyền), viewer (chỉ xem)
+- Giao diện ẩn/hiện chức năng theo role
+- Gán role cho user qua API
+- Responsive UI, hỗ trợ dark mode
 
 ---
 
 ## ⚙️ Hướng dẫn cài đặt & chạy
+
 ### 1. Clone project
 ```bash
 git clone <repo-url>
@@ -38,14 +27,34 @@ cd Sails-React
 ```bash
 cd server
 npm install
-cp .env.example .env # hoặc tự tạo file .env với JWT_SECRET, DB info
-npm run dev
 ```
 
 ### 3. Cài đặt frontend
 ```bash
 cd ../client
 npm install
+```
+
+### 4. Cấu hình MongoDB
+- Đảm bảo MongoDB đang chạy tại `mongodb://localhost:27017/sailsreact` (hoặc sửa trong `server/config/datastores.js`)
+
+### 5. Seed role mặc định
+```bash
+cd ../server
+node seed_roles.js
+```
+
+### 6. Chạy backend
+```bash
+cd server
+npm start
+# hoặc
+sails lift
+```
+
+### 7. Chạy frontend
+```bash
+cd ../client
 npm run dev
 ```
 
@@ -54,18 +63,50 @@ npm run dev
 
 ---
 
-## 🔑 Tài khoản mẫu
-- Đăng ký tài khoản mới hoặc dùng tài khoản đã có trong DB.
+## 🛠️ Cách triển khai & sử dụng
+
+- Đăng ký tài khoản mới: sẽ có role mặc định là **viewer** (chỉ xem sản phẩm)
+- Để gán role **admin** cho user, dùng API:
+  - `POST http://localhost:1337/api/userrole/assignRole`
+  - Body:
+    ```json
+    {
+      "userId": "<id_user>",
+      "roleId": "<id_role_admin>"
+    }
+    ```
+- Chỉ **admin** mới thấy và thao tác được các nút Thêm/Sửa/Xóa sản phẩm
+- Nếu không phải admin, truy cập `/add` sẽ hiện thông báo không có quyền
+- Sau khi gán role admin, cần đăng xuất và đăng nhập lại để cập nhật quyền
+- Khi đăng ký thành công sẽ hiện alert và tự động chuyển sang form đăng nhập
+
+---
+
+## 💡 Gợi ý phát triển tiếp theo
+- Thêm phân quyền chi tiết hơn (nhiều role, permission động)
+- Thêm chức năng quản lý user, quản lý role/permission qua giao diện
+- Thêm upload ảnh sản phẩm
+- Thêm chức năng quên mật khẩu, xác thực email
+- Viết unit test cho backend/frontend
+- Tích hợp CI/CD, Docker
+- Viết tài liệu API chi tiết (Swagger)
+- Tối ưu UI/UX, thêm đa ngôn ngữ
+
+---
+
+## 📁 Cấu trúc thư mục
+- `server/` - Backend SailsJS
+- `client/` - Frontend ReactJS
 
 ---
 
 ## 🛠️ Các chức năng nổi bật
-- **Đăng ký/Đăng nhập:** Lưu token vào localStorage, xác thực qua JWT.
-- **Quản lý sản phẩm:** CRUD, tìm kiếm, phân trang (gọi API backend).
-- **Dark mode:** Lưu theme vào localStorage, chuyển đổi giao diện.
-- **Session info:** Đếm số lần truy cập session, hiển thị ở footer.
-- **Footer:** Hiển thị thời gian truy cập gần nhất, theme, user, session.
-- **DevTools:** Có thể debug API, localStorage, sessionStorage, cookie qua Chrome DevTools.
+- Đăng ký/Đăng nhập: Lưu token vào localStorage, xác thực qua JWT.
+- Quản lý sản phẩm: CRUD, tìm kiếm, phân trang (gọi API backend).
+- Dark mode: Lưu theme vào localStorage, chuyển đổi giao diện.
+- Session info: Đếm số lần truy cập session, hiển thị ở footer.
+- Footer: Hiển thị thời gian truy cập gần nhất, theme, user, session.
+- DevTools: Có thể debug API, localStorage, sessionStorage, cookie qua Chrome DevTools.
 
 ---
 
@@ -85,22 +126,9 @@ npm run dev
 
 > **Lưu ý:** Các route sản phẩm yêu cầu JWT (Authorization: Bearer ...)
 
----
-
-## 🗂️ Gợi ý phát triển tiếp
-- Thêm phân quyền (admin/user)
-- Thêm upload ảnh sản phẩm
-- Thêm chức năng quên mật khẩu
-- Viết unit test cho backend/frontend
-- Tích hợp CI/CD, Docker
-- Viết tài liệu API chi tiết (Swagger)
-- ....
----
-
-## 🧑‍💻 Công nghệ sử dụng
-- React, React Router, Axios, CSS thuần
-- Sails.js, MongoDB, JWT, Bcrypt
-- Postman, VSCode, Cursor Git
+### UserRole & Role
+- `POST /api/userrole/assignRole` — Gán role cho user
+- (Có thể bổ sung API lấy danh sách role, user...)
 
 ---
 
@@ -114,5 +142,7 @@ npm run dev
 
 ---
 
-## ✨ Tác giả 
-- Tác giả: Bùi Tùng Lâm
+## ✨ Tác giả
+- Bùi Tùng Lâm
+
+---

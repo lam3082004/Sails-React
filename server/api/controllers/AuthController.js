@@ -16,6 +16,11 @@ module.exports = {
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       const newUser = await User.create({ username, password: hashedPassword }).fetch();
+      // Gán role viewer mặc định
+      const viewerRole = await Role.findOne({ name: 'viewer' });
+      if (viewerRole) {
+        await UserRole.create({ user: newUser.id, role: viewerRole.id });
+      }
       return res.ok({ message: 'Đăng ký thành công', user: { id: newUser.id, username: newUser.username } });
     } catch (err) {
       return res.serverError({ message: 'Lỗi đăng ký', error: err.message });
@@ -35,13 +40,16 @@ module.exports = {
       if (!match) {
         return res.badRequest({ message: 'Sai username hoặc password' });
       }
+      // Lấy roles của user
+      const userRoles = await UserRole.find({ user: user.id }).populate('role');
+      const roles = userRoles.map(ur => ur.role.name);
       // Tạo JWT
       const token = jwt.sign(
         { id: user.id, username: user.username },
         process.env.JWT_SECRET,
         { expiresIn: '1d' }
       );
-      return res.ok({ message: 'Đăng nhập thành công', token, user: { id: user.id, username: user.username } });
+      return res.ok({ message: 'Đăng nhập thành công', token, user: { id: user.id, username: user.username, roles } });
     } catch (err) {
       return res.serverError({ message: 'Lỗi đăng nhập', error: err.message });
     }

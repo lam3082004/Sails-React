@@ -6,6 +6,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import LoginForm from './components/authentication/LoginForm';
 import RegisterForm from './components/authentication/RegisterForm';
+import useRole from './hooks/useRole';
 
 function About() {
   return (
@@ -28,6 +29,7 @@ function App() {
   const [sessionData, setSessionData] = useState('');
   const [showDebugPanel, setShowDebugPanel] = useState(false);
   const hasIncrementedViews = useRef(false);
+  const { isAdmin } = useRole();
 
   // Lưu thời gian truy cập gần nhất
   useEffect(() => {
@@ -208,6 +210,12 @@ function App() {
     setUser(null);
   };
 
+  // Khi đăng ký thành công
+  const handleRegisterSuccess = () => {
+    setShowRegister(false);
+    setShowLogin(true);
+  };
+
   if (loading) {
     return (
       <div className="cms-container">
@@ -248,7 +256,7 @@ function App() {
         {showRegister && (
           <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1000 }}>
             <div style={{ position: 'relative', width: 'fit-content', margin: 'auto', top: '20vh' }}>
-              <RegisterForm onSuccess={() => setShowRegister(false)} onClose={() => setShowRegister(false)} />
+              <RegisterForm onSuccess={handleRegisterSuccess} onClose={() => setShowRegister(false)} />
             </div>
           </div>
         )}
@@ -295,7 +303,13 @@ function App() {
                 path="/add"
                 element={
                   user ? (
-                    <ProductForm onAddProduct={handleAddProduct} />
+                    isAdmin ? (
+                      <ProductForm onAddProduct={handleAddProduct} />
+                    ) : (
+                      <div style={{textAlign: 'center', marginTop: 40}}>
+                        <h2>Bạn không có quyền thêm sản phẩm</h2>
+                      </div>
+                    )
                   ) : (
                     <div style={{textAlign: 'center', marginTop: 40}}>
                       <h2>Vui lòng đăng nhập để thêm sản phẩm</h2>

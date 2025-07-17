@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import './ProductList.css';
 import ProductSearch from './ProductSearch';
 import ProductFormEdit from './ProductFormEdit';
+import useRole from '../../hooks/useRole';
 
 function ProductList({ products, onDeleteProduct, onUpdateProduct, onFilterProducts }) {
   const [editProduct, setEditProduct] = useState(null);
@@ -112,9 +113,12 @@ function ProductList({ products, onDeleteProduct, onUpdateProduct, onFilterProdu
     return products.slice(start, start + itemsPerPage);
   }, [products, currentPage]);
 
+  const { isAdmin } = useRole();
+
   return (
     <div className="product-list">
       <h2>Product List ({products.length} items)</h2>
+      {/* {isAdmin && <button onClick={() => setEditProduct({ id: 'new', name: '', price: '', description: '', category: '', inStock: true })}>Thêm sản phẩm</button>} */}
       <ProductSearch
         searchTerm={searchTerm}
         minPrice={minPrice}
@@ -156,20 +160,24 @@ function ProductList({ products, onDeleteProduct, onUpdateProduct, onFilterProdu
                     </span>
                   </td>
                   <td>
-                    <button 
-                      onClick={() => handleEdit(product)}
-                      disabled={loading || editProduct}
-                      className="edit-btn"
-                    >
-                      Edit
-                    </button>
-                    <button 
-                      onClick={() => handleDelete(product.id)}
-                      disabled={loading}
-                      className="delete-btn"
-                    >
-                      {loading ? 'Deleting...' : 'Delete'}
-                    </button>
+                    {isAdmin && (
+                      <>
+                        <button 
+                          onClick={() => handleEdit(product)}
+                          disabled={loading || editProduct}
+                          className="edit-btn"
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(product.id)}
+                          disabled={loading}
+                          className="delete-btn"
+                        >
+                          {loading ? 'Deleting...' : 'Delete'}
+                        </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))

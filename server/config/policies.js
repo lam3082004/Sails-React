@@ -9,14 +9,12 @@
  */
 
 module.exports.policies = {
-
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions, unless overridden.       *
-  * (`true` allows public access)                                            *
-  *                                                                          *
-  ***************************************************************************/
-
-  // '*': true,
-
+  ProductController: {
+    create: ['isAuthenticated', 'isAdmin'],
+    update: ['isAuthenticated', 'isAdmin'],
+    destroy: ['isAuthenticated', 'isAdmin'],
+    find: true,
+    findOne: true,
+    search: true
+  },
 };

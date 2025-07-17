@@ -15,7 +15,10 @@ function RegisterForm({ onSuccess, onClose }) {
       setMessage(res.data.message || 'Đăng ký thành công!');
       setUsername('');
       setPassword('');
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        alert('Bạn đã tạo tài khoản thành công. Vui lòng đăng nhập');
+        onSuccess();
+      }
     } catch (err) {
       setMessage(err.response?.data?.message || 'Đăng ký thất bại');
     }

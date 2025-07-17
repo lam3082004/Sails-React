@@ -20,4 +20,12 @@ module.exports.routes = {
   'POST /api/login': 'AuthController.login',
   'POST /api/logout': 'AuthController.logout',
   'GET /api/verify-token': 'AuthController.verifyToken',
+
+  // Role
+  'POST /api/userrole/assignRole': 'UserRoleController.assignRole',
+  // http://localhost:1337/api/userrole/assignRole
+  // {
+  //   "userId": "68786d6ac6c4083f02fe2e9f",
+  //   "roleId": "687871479331392058c92f0c"
+  // }
 };
